@@ -1,4 +1,4 @@
-package pl.kosieradzki;
+package pl.kosieradzki.Lessons;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

@@ -1,9 +1,9 @@
-package pl.kosieradzki;
+package pl.kosieradzki.Lessons;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import pl.kosieradzki.block.Blocks;
-import pl.kosieradzki.block.BlockNumb;
+import pl.kosieradzki.Lessons.block.Blocks;
+import pl.kosieradzki.Lessons.block.BlockNumb;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.kosieradzki.Lessons.block;
+package pl.kosieradzki.Lessons.Block;
 
 public class BlockHours {
     private String start;

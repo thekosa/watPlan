@@ -1,4 +1,4 @@
-package pl.kosieradzki.Lessons.block;
+package pl.kosieradzki.Lessons.Block;
 
 import java.util.HashMap;
 import java.util.Map;

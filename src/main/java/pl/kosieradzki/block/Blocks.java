@@ -3,11 +3,11 @@ package pl.kosieradzki.block;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Block {
+public class Blocks {
 
     public Map<BlockNumb, BlockHours> blocks;
 
-    public Block() {
+    public Blocks() {
         blocks = new HashMap<>();
         blocks.put(BlockNumb.block1, new BlockHours("08:00", "09:35"));
         blocks.put(BlockNumb.block2, new BlockHours("09:50", "11:25"));

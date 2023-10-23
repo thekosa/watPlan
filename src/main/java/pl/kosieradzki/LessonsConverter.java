@@ -2,26 +2,22 @@ package pl.kosieradzki;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import pl.kosieradzki.block.Block;
+import pl.kosieradzki.block.Blocks;
 import pl.kosieradzki.block.BlockNumb;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LessonsConverter {
-    private final Elements lessons;
-    private List<String> csvLessons;
-    private final Block block = new Block();
+    private final List<String> csvLessons;
+    private final Blocks blocks = new Blocks();
 
-    public LessonsConverter(Elements lessons) {
-        this.lessons = lessons;
+    public LessonsConverter() {
         csvLessons = new ArrayList<>();
-        csvLessons.add("Temat,Lokalizacja,Data rozpoczęcia,Czas rozpoczęcia,Data zakończenia,Czas zakończenia,Przypomnienie wł./wył.,Data przypomnienia,Czas przypomnienia");
-        elements2csv();
     }
 
-    public List<String> elements2csv() {
+    public List<String> elements2csv(Elements lessons) {
+        csvLessons.add("Temat,Lokalizacja,Data rozpoczęcia,Czas rozpoczęcia,Data zakończenia,Czas zakończenia,Przypomnienie wł./wył.,Data przypomnienia,Czas przypomnienia");
         for (Element lesson : lessons) {
             csvLessons.add(constructName(lesson) + ","
                     + constructLocalization(lesson) + ","
@@ -38,10 +34,10 @@ public class LessonsConverter {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(csvLessons.get(0));
-        for (String s : csvLessons){
+        for (String s : csvLessons) {
             stringBuilder.append("\n").append(s);
         }
         return stringBuilder.toString();
@@ -49,12 +45,12 @@ public class LessonsConverter {
 
     private String constructEndTime(Element lesson) {
         int id = getBlockId(lesson);
-        return block.getBlocks().get(BlockNumb.values()[id]).getEnd();
+        return blocks.getBlocks().get(BlockNumb.values()[id]).getEnd();
     }
 
     private String constructStartTime(Element lesson) {
         int id = getBlockId(lesson);
-        return block.getBlocks().get(BlockNumb.values()[id]).getStart();
+        return blocks.getBlocks().get(BlockNumb.values()[id]).getStart();
     }
 
     private int getBlockId(Element lesson) {
@@ -88,5 +84,12 @@ public class LessonsConverter {
 
 //        System.out.println(infoName + type + " " + numb);
         return infoName + type + " " + numb;
+    }
+
+    public String getLessonName(Element lesson) {
+        Element info = lesson.select(".info").first();
+
+        assert info != null;
+        return info.text().split("-")[0].trim().toLowerCase();
     }
 }

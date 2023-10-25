@@ -1,10 +1,13 @@
 package pl.kosieradzki.Lessons;
 
+import lombok.Getter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import pl.kosieradzki.FileHandler;
 import pl.kosieradzki.SSLHelper.SSLHelper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Getter
@@ -12,8 +15,9 @@ public class Lessons {
     private Elements lessons;
     private final String url;
 
-    public Lessons(String groupName) {
-        url = "https://old.wcy.wat.edu.pl/pl/rozklad?grupa_id=" + groupName;
+    public Lessons(String groupName) throws FileNotFoundException {
+        FileHandler fileHandler = new FileHandler();
+        url = fileHandler.readFileToString("src/main/resources/config/watURL") + groupName;
         loadLessons();
     }
 

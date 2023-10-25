@@ -86,14 +86,15 @@ public class CalendarHandler {
 
     public void deleteCalendar(String calendarId) throws GeneralSecurityException, IOException {
         getService().calendars().delete(calendarId).execute();
+        System.out.println("Calendar deleted: " + calendarId);
     }
 
     public String insertCalendar(String calendarSummary) throws GeneralSecurityException, IOException {
-      Calendar calendar = new Calendar();
-        calendar.setSummary(calendarSummary);
-        calendar.setTimeZone("Europe/Warsaw");
+        Calendar calendar = new Calendar();
+        calendar.setSummary(calendarSummary).setTimeZone("Europe/Warsaw");
 
-       Calendar createdCalendar = getService().calendars().insert(calendar).execute();
+        Calendar createdCalendar = getService().calendars().insert(calendar).execute();
+        System.out.println("Calendar inserted: " + createdCalendar.getSummary());
         return createdCalendar.getId();
     }
 
@@ -118,7 +119,6 @@ public class CalendarHandler {
                 .setEnd(end);
 
         getService().events().insert(calendarId, event).execute();
-        System.out.println("Event created: " + event);
+        System.out.println("Event inserted: " + event.getSummary());
     }
-
 }

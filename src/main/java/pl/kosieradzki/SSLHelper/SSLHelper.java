@@ -12,8 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 /**
- *{@code @Author} : <a href="https://stackoverflow.com/users/197127/checklist">checklist</a>
- *{@code @source} : <a href="https://stackoverflow.com/questions/40742380/how-to-resolve-jsoup-error-unable-to-find-valid-certification-path-to-requested/40742828#answer-58325184">stackoverflow.com</a>
+ * {@code @Author} : <a href="https://stackoverflow.com/users/197127/checklist">checklist</a>
+ * {@code @source} : <a href="https://stackoverflow.com/questions/40742380/how-to-resolve-jsoup-error-unable-to-find-valid-certification-path-to-requested/40742828#answer-58325184">stackoverflow.com</a>
  */
 
 public class SSLHelper {
@@ -38,9 +38,7 @@ public class SSLHelper {
         try {
             SSLContext sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            SSLSocketFactory result = sslContext.getSocketFactory();
-
-            return result;
+            return sslContext.getSocketFactory();
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             throw new RuntimeException("Failed to create a SSL socket factory", e);
         }

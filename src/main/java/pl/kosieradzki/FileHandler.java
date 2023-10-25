@@ -24,9 +24,4 @@ public class FileHandler {
         }
         return list;
     }
-
-    public void deleteFile(String fileName) {
-        File file = new File(fileName);
-        file.delete();
-    }
 }

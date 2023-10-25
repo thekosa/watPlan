@@ -4,8 +4,6 @@ import com.google.api.client.util.DateTime;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Calendar;
-
 @Setter
 @Getter
 public class CalendarEventEntity {

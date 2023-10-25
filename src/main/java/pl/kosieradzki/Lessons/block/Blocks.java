@@ -1,10 +1,12 @@
 package pl.kosieradzki.Lessons.Block;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class Blocks {
-
     public Map<BlockNumb, BlockHours> blocks;
 
     public Blocks() {
@@ -16,9 +18,5 @@ public class Blocks {
         blocks.put(BlockNumb.block5, new BlockHours("15:45", "17:20"));
         blocks.put(BlockNumb.block6, new BlockHours("17:35", "19:10"));
         blocks.put(BlockNumb.block7, new BlockHours("19:25", "21:00"));
-    }
-
-    public Map<BlockNumb, BlockHours> getBlocks() {
-        return blocks;
     }
 }

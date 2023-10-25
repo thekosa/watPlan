@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonsFilter {
-    private List<String> filter = new ArrayList<>();
+    private final List<String> filter = new ArrayList<>();
 
     /**
      * @param filter : List of lessons that will not be deleted

@@ -10,7 +10,7 @@ import java.io.IOException;
 @Getter
 public class Lessons {
     private Elements lessons;
-    private String url;
+    private final String url;
 
     public Lessons(String groupName) {
         url = "https://old.wcy.wat.edu.pl/pl/rozklad?grupa_id=" + groupName;

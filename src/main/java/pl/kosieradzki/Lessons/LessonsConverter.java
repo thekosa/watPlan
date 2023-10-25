@@ -1,7 +1,9 @@
 package pl.kosieradzki.Lessons;
 
+import com.google.api.client.util.DateTime;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import pl.kosieradzki.Calendar.CalendarEventEntity;
 import pl.kosieradzki.Lessons.Block.Blocks;
 import pl.kosieradzki.Lessons.Block.BlockNumb;
 
@@ -9,14 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonsConverter {
-    private final List<String> csvLessons;
     private final Blocks blocks = new Blocks();
 
-    public LessonsConverter() {
-        csvLessons = new ArrayList<>();
+    public List<CalendarEventEntity> elements2CEE(Elements lessons) {
+        List<CalendarEventEntity> cee = new ArrayList<>();
+        for (Element lesson : lessons) {
+            cee.add(new CalendarEventEntity(constructName(lesson),
+                    constructLocalization(lesson),
+                    constructStartDateTime(lesson),
+                    constructEndDateTime(lesson)));
+        }
+        return cee;
     }
 
     public List<String> elements2csv(Elements lessons) {
+        List<String> csvLessons = new ArrayList<>();
         csvLessons.add("Temat,Lokalizacja,Data rozpoczęcia,Czas rozpoczęcia,Data zakończenia,Czas zakończenia,Przypomnienie wł./wył.,Data przypomnienia,Czas przypomnienia");
         for (Element lesson : lessons) {
             csvLessons.add(constructName(lesson) + ","
@@ -33,14 +42,23 @@ public class LessonsConverter {
         return csvLessons;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(csvLessons.get(0));
-        for (String s : csvLessons) {
-            stringBuilder.append("\n").append(s);
+    /*
+        @Override
+        public String toString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(csvLessons.get(0));
+            for (String s : csvLessons) {
+                stringBuilder.append("\n").append(s);
+            }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
+    */
+    private DateTime constructStartDateTime(Element lesson) {
+        return new DateTime(constructDate(lesson) + "T" + constructStartTime(lesson) + ":00Z");
+    }
+
+    private DateTime constructEndDateTime(Element lesson) {
+        return new DateTime(constructDate(lesson) + "T" + constructEndTime(lesson) + ":00Z");
     }
 
     private String constructEndTime(Element lesson) {
@@ -53,16 +71,12 @@ public class LessonsConverter {
         return blocks.getBlocks().get(BlockNumb.values()[id]).getStart();
     }
 
-    private int getBlockId(Element lesson) {
-        Element blockId = lesson.select(".block_id").first();
-        assert blockId != null;
-        return Integer.parseInt(blockId.text().substring(5));
-    }
 
     private String constructDate(Element lesson) {
         Element date = lesson.select(".date").first();
         assert date != null;
-        return date.text();
+        // System.out.println("to tu podkreślniki? "+date);
+        return date.text().replaceAll("_", "-");
     }
 
     private String constructLocalization(Element lesson) {
@@ -84,6 +98,12 @@ public class LessonsConverter {
 
 //        System.out.println(infoName + type + " " + numb);
         return infoName + type + " " + numb;
+    }
+
+    private int getBlockId(Element lesson) {
+        Element blockId = lesson.select(".block_id").first();
+        assert blockId != null;
+        return Integer.parseInt(blockId.text().substring(5)) - 1;
     }
 
     public String getLessonName(Element lesson) {

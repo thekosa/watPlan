@@ -7,7 +7,7 @@ import pl.kosieradzki.SSLHelper.SSLHelper;
 
 import java.io.IOException;
 
-
+@Getter
 public class Lessons {
     private Elements lessons;
     private String url;
@@ -30,10 +30,5 @@ public class Lessons {
         } else {
             throw new Error("Class lessons does not exist.");
         }
-    }
-
-    public Elements getLessons() {
-       // System.out.println(lessons.get(3));
-        return lessons;
     }
 }

@@ -11,7 +11,6 @@ public class CalendarEventEntity {
     private String location;
     private DateTime startDateTime;
     private DateTime endDateTime;
-    private String timeZone = "Europe/Warsaw";
 
     public CalendarEventEntity(String summary, String location, DateTime startDateTime, DateTime endDateTime) {
         this.summary = summary;

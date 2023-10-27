@@ -106,12 +106,8 @@ public class CalendarHandler {
 
     private void insertEvent(CalendarEventEntity item, String calendarId) throws GeneralSecurityException, IOException {
         Event event = new Event();
-        EventDateTime start = new EventDateTime()
-                .setDateTime(item.getStartDateTime())
-                .setTimeZone(item.getTimeZone());
-        EventDateTime end = new EventDateTime()
-                .setDateTime(item.getEndDateTime())
-                .setTimeZone(item.getTimeZone());
+        EventDateTime start = new EventDateTime().setDateTime(item.getStartDateTime());
+        EventDateTime end = new EventDateTime().setDateTime(item.getEndDateTime());
 
         event.setSummary(item.getSummary())
                 .setLocation(item.getLocation())
@@ -120,5 +116,6 @@ public class CalendarHandler {
 
         getService().events().insert(calendarId, event).execute();
         System.out.println("Event inserted: " + event.getSummary());
+//        System.out.println("cały ivent: " + event);
     }
 }

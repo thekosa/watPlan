@@ -7,8 +7,8 @@ import pl.kosieradzki.Calendar.CalendarEventEntity;
 import pl.kosieradzki.Lessons.Block.Blocks;
 import pl.kosieradzki.Lessons.Block.BlockNumb;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
 public class LessonsConverter {
     private final Blocks blocks = new Blocks();
@@ -54,11 +54,33 @@ public class LessonsConverter {
         }
     */
     private DateTime constructStartDateTime(Element lesson) {
-        return new DateTime(constructDate(lesson) + "T" + constructStartTime(lesson) + ":00Z");
+        String date = constructDate(lesson);
+        if (isSummerTime(date)) {
+            return new DateTime(date + "T" + constructStartTime(lesson) + ":00+02:00");
+        } else {
+            return new DateTime(date + "T" + constructStartTime(lesson) + ":00+01:00");
+        }
     }
 
     private DateTime constructEndDateTime(Element lesson) {
-        return new DateTime(constructDate(lesson) + "T" + constructEndTime(lesson) + ":00Z");
+        String date = constructDate(lesson);
+        if (isSummerTime(date)) {
+            return new DateTime(date + "T" + constructEndTime(lesson) + ":00+02:00");
+        } else {
+            return new DateTime(date + "T" + constructEndTime(lesson) + ":00+01:00");
+        }
+    }
+
+    private boolean isSummerTime(String date) {
+        String[] yearMonthDay = date.split("-");
+        ZoneId zoneId = ZoneId.of("Europe/Warsaw");
+        LocalDateTime localDateTime = LocalDateTime.of(
+                Integer.parseInt(yearMonthDay[0]),
+                Integer.parseInt(yearMonthDay[1]),
+                Integer.parseInt(yearMonthDay[2]),
+                12,
+                0);
+        return zoneId.getRules().isDaylightSavings(ZonedDateTime.of(localDateTime, zoneId).toInstant());
     }
 
     private String constructEndTime(Element lesson) {
@@ -75,7 +97,6 @@ public class LessonsConverter {
     private String constructDate(Element lesson) {
         Element date = lesson.select(".date").first();
         assert date != null;
-        // System.out.println("to tu podkreślniki? "+date);
         return date.text().replaceAll("_", "-");
     }
 

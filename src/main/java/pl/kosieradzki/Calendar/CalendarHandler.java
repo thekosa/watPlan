@@ -28,7 +28,7 @@ public class CalendarHandler {
     /**
      * Application name.
      */
-    private static final String APPLICATION_NAME = "My Project 47501";
+    private static final String APPLICATION_NAME = "WatPlan";
     /**
      * Global instance of the JSON factory.
      */

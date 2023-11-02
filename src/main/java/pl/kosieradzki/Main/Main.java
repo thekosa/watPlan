@@ -11,12 +11,16 @@ import pl.kosieradzki.Lessons.LessonsFilter;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
         System.out.println("Hello world!");
+
 
         final String configFilePath = "src/main/resources/config/";
         final String filtersFilePath = "src/main/resources/config/filters/";

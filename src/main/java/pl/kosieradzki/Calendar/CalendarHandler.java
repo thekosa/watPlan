@@ -68,7 +68,7 @@ public class CalendarHandler {
                         .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         //returns an authorized Credential object.
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("kosecki.testowy");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("michal.kosieradzki");
     }
 
     private com.google.api.services.calendar.Calendar getService() throws IOException, GeneralSecurityException {

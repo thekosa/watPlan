@@ -1,4 +1,4 @@
-package pl.kosieradzki.Lessons.Block;
+package pl.kosieradzki.lessons.block;
 
 public enum BlockNumb {
     block1, block2, block3, block4, block5, block6, block7

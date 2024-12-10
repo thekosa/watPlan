@@ -1,4 +1,4 @@
-package pl.kosieradzki.Lessons;
+package pl.kosieradzki.lessons;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -18,20 +18,24 @@ public class LessonsFilter {
         }
     }
 
-    public Elements filterOut(Elements lessonsNotFiltered) {
-        Elements lessonsFiltered = new Elements();
-        for (Element lesson : lessonsNotFiltered) {
-            boolean isOnList = false;
-            for (String lessonNameFilter : filter) {
-                if (new LessonsConverter().getLessonName(lesson).equals(lessonNameFilter)) {
-                    isOnList = true;
-                    break;
-                }
-            }
-            if (isOnList) {
-                lessonsFiltered.add(lesson);
+    public Elements filterOut(Elements allLessons) {
+        final LessonsConverter lessonsConverter = new LessonsConverter();
+        Elements filteredLessons = new Elements();
+
+        for (Element lesson : allLessons) {
+            if (isLessonOnFilterList(lessonsConverter, lesson)) {
+                filteredLessons.add(lesson);
             }
         }
-        return lessonsFiltered;
+        return filteredLessons;
+    }
+
+    private boolean isLessonOnFilterList(LessonsConverter lessonsConverter, Element lesson) {
+        for (String lessonNameFilter : filter) {
+            if (lessonsConverter.getLessonName(lesson).equals(lessonNameFilter)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

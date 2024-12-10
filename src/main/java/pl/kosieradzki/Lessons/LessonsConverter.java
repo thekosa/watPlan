@@ -1,11 +1,11 @@
-package pl.kosieradzki.Lessons;
+package pl.kosieradzki.lessons;
 
 import com.google.api.client.util.DateTime;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import pl.kosieradzki.Calendar.CalendarEventEntity;
-import pl.kosieradzki.Lessons.Block.Blocks;
-import pl.kosieradzki.Lessons.Block.BlockNumb;
+import pl.kosieradzki.calendar.CalendarEventEntity;
+import pl.kosieradzki.lessons.block.Blocks;
+import pl.kosieradzki.lessons.block.BlockNumb;
 
 import java.time.*;
 import java.util.*;
@@ -38,21 +38,9 @@ public class LessonsConverter {
                     + constructDate(lesson) + ","
                     + constructStartTime(lesson));
         }
-        //System.out.println(csvLessons);
         return csvLessons;
     }
 
-    /*
-        @Override
-        public String toString() {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(csvLessons.get(0));
-            for (String s : csvLessons) {
-                stringBuilder.append("\n").append(s);
-            }
-            return stringBuilder.toString();
-        }
-    */
     private DateTime constructStartDateTime(Element lesson) {
         String date = constructDate(lesson);
         if (isSummerTime(date)) {
@@ -117,7 +105,6 @@ public class LessonsConverter {
         String type = name.toString().split("<br>")[1].substring(1);
         String numb = "[" + name.toString().split("<br>")[3].split("\\[")[1].split("<")[0];
 
-//        System.out.println(infoName + type + " " + numb);
         return infoName + type + " " + numb;
     }
 

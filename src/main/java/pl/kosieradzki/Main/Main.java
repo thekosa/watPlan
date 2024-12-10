@@ -2,18 +2,15 @@ package pl.kosieradzki.Main;
 
 import com.google.api.services.calendar.model.CalendarListEntry;
 import org.jsoup.select.Elements;
-import pl.kosieradzki.Calendar.CalendarEventEntity;
-import pl.kosieradzki.Calendar.CalendarHandler;
+import pl.kosieradzki.calendar.CalendarEventEntity;
+import pl.kosieradzki.calendar.CalendarHandler;
 import pl.kosieradzki.FileHandler;
-import pl.kosieradzki.Lessons.Lessons;
-import pl.kosieradzki.Lessons.LessonsConverter;
-import pl.kosieradzki.Lessons.LessonsFilter;
+import pl.kosieradzki.lessons.Lessons;
+import pl.kosieradzki.lessons.LessonsConverter;
+import pl.kosieradzki.lessons.LessonsFilter;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Main {

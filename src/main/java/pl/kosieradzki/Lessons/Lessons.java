@@ -1,4 +1,4 @@
-package pl.kosieradzki.Lessons;
+package pl.kosieradzki.lessons;
 
 import lombok.Getter;
 import org.jsoup.nodes.Document;

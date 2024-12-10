@@ -1,4 +1,4 @@
-package pl.kosieradzki.Calendar;
+package pl.kosieradzki.calendar;
 
 import com.google.api.client.util.DateTime;
 import lombok.Getter;

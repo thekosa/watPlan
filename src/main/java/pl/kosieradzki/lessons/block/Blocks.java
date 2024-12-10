@@ -1,4 +1,4 @@
-package pl.kosieradzki.lessons.block;
+package pl.kosieradzki.Lessons.Block;
 
 import lombok.Getter;
 

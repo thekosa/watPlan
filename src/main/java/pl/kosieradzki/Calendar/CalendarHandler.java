@@ -13,15 +13,10 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.services.calendar.model.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
 
 /**
  * Handles operations related to Google Calendar, including authentication, retrieving,
@@ -79,12 +74,25 @@ public class CalendarHandler {
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                        .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
-                        .setAccessType("offline")
-                        .build();
+        GoogleAuthorizationCodeFlow flow = null;
+        try {
+            flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                    .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
+                    .setAccessType("offline")
+                    .build();
+        } catch (EOFException e) {
+            File corruptedTokenFile = new File(TOKENS_DIRECTORY_PATH);
+            File[] files = corruptedTokenFile.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (!file.delete()) {
+                        System.err.println("Failed to delete token file: " + file.getAbsolutePath());
+                        System.out.println("Please delete the corrupted token file manually.");
+                    }
+                }
+            }
+        }
+
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userId);
     }

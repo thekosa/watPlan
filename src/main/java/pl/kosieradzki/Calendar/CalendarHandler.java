@@ -49,6 +49,20 @@ public class CalendarHandler {
      */
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    /**
+     * Represents the user identifier associated with the Google API credential.
+     */
+    private final String userId;
+
+    /**
+     * Constructs a new CalendarHandler instance for managing Google Calendar operations
+     * using the specified user credential.
+     *
+     * @param userId the authorized credential object for accessing Google Calendar services
+     */
+    public CalendarHandler(String userId) {
+        this.userId = userId;
+    }
 
     /**
      * Creates an authorized Credential object.
@@ -72,8 +86,7 @@ public class CalendarHandler {
                         .setAccessType("offline")
                         .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        //returns an authorized Credential object.
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("michal.kosieradzki");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userId);
     }
 
     /**

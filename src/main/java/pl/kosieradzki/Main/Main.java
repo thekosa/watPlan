@@ -37,7 +37,7 @@ public class Main {
             LessonsConverter lessonsConverter = new LessonsConverter();
             List<CalendarEventEntity> lessonsConverted = lessonsConverter.elements2CEE(lessonsFiltered);
 
-            CalendarHandler calendarHandler = new CalendarHandler();
+            CalendarHandler calendarHandler = new CalendarHandler(fileHandler.readFileToString(configFilePath + "userID"));
             List<CalendarListEntry> calendarsList = calendarHandler.getCalendars();
 
             for (CalendarListEntry calendar : calendarsList) {
